@@ -3,7 +3,7 @@ import {TonConnectUIProvider} from "@tonconnect/ui-react";
 import {Header} from "./Header.tsx";
 
 function App() {
-    return <TonConnectUIProvider manifestUrl="https://<YOUR_APP_URL>/tonconnect-manifest.json">
+    return <TonConnectUIProvider manifestUrl="https://siandreev.github.io/web3-hk-sample/tonconnect-manifest.json">
         <AppRoot>
             <Header />
             <Placeholder
