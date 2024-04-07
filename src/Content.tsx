@@ -6,6 +6,10 @@ export const Content = () => {
     const wallet = useTonWallet();
     const [tc] = useTonConnectUI();
     const onSend = () => {
+        if (!wallet) {
+            return tc.openModal();
+        }
+
         const payload = generatePayload(wallet!.account.address);
         const { address, stateInit } = getAddressAndStateInit(wallet!.account.address);
 
@@ -26,6 +30,6 @@ export const Content = () => {
             src="https://xelene.me/telegram.gif"
             style={{ display: 'block', width: '144px', height: '144px' }}
         />
-        <Button onClick={onSend}>Mint free NFT</Button>
+        <Button onClick={onSend}>{wallet ? 'Mint free NFT' : 'Connect wallet to mint free NFT'}</Button>
     </Placeholder>
 }
