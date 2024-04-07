@@ -1,7 +1,6 @@
 import { Base64 } from '@tonconnect/protocol';
-import {Address, beginCell, contractAddress as calculateContractAddress, Cell, StateInit, storeStateInit} from 'ton';
+import {Address, beginCell, contractAddress as calculateContractAddress, Cell, storeStateInit} from 'ton';
 
-const OFFCHAIN_CONTENT_PREFIX = 0x01;
 const nftUri = 'https://siandreev.github.io/web3-hk-sample/nft-data.json';
 
 function bufferToChunks(buff: Buffer, chunkSize: number) {
@@ -46,20 +45,12 @@ const contractCode =
     'te6cckECDgEAAdwAART/APSkE/S88sgLAQIBYgINAgLOAwoCASAECQLPDIhxwCSXwPg0NMDAXGwkl8D4PpA+kAx+gAxcdch+gAx+gAwc6m0APACBLOOFDBsIjRSMscF8uGVAfpA1DAQI/AD4AbTH9M/ghBfzD0UUjC64wIwNDQ1NYIQL8smohK64wJfBIQP8vCAFCAKsMhA3XjJAE1E1xwXy4ZH6QCHwAfpA0gAx+gAg10nCAPLixIIK+vCAG6EhlFMVoKHeItcLAcMAIJIGoZE24iDC//LhkiGUECo3W+MNApMwMjTjDVUC8AMGBwB8ghAFE42RyFAJzxZQC88WcSRJFFRGoHCAEMjLBVAHzxZQBfoCFctqEssfyz8ibrOUWM8XAZEy4gHJAfsAEEcAaibwAYIQ1TJ22xA3RABtcXCAEMjLBVAHzxZQBfoCFctqEssfyz8ibrOUWM8XAZEy4gHJAfsAAHJwghCLdxc1BcjL/1AEzxYQJIBAcIAQyMsFUAfPFlAF+gIVy2oSyx/LPyJus5RYzxcBkTLiAckB+wAAET6RDBwuvLhTYAIBIAsMADs7UTQ0z/6QCDXScIAmn8B+kDUMBAkECPgMHBZbW2AAHQDyMs/WM8WAc8WzMntVIAAJoR+f4AUR8jb8';
 const initCodeCell = Cell.fromBase64(contractCode);
 
-const serializeUri = (uri: string): Uint8Array => {
-    return new TextEncoder().encode(encodeURI(uri));
-};
 
 const createOffchainUriCell = (uri: string) => {
     let data = Buffer.from(uri);
     const offChainPrefix = Buffer.from([0x01]);
     data = Buffer.concat([offChainPrefix, data]);
     return makeSnakeCell(data);
-
-   /* return beginCell()
-        .storeUint(OFFCHAIN_CONTENT_PREFIX, 8)
-        .storeBuffer(Buffer.from(serializeUri(uri)))
-        .endCell();*/
 };
 
 function generateInitialData(ownerAddressHex: string): Cell {

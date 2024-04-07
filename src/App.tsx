@@ -1,4 +1,4 @@
-import {AppRoot, Placeholder} from "@xelene/tgui";
+import {AppRoot} from "@xelene/tgui";
 import {TonConnectUIProvider} from "@tonconnect/ui-react";
 import {Header} from "./Header.tsx";
 import {Content} from "./Content.tsx";
